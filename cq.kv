@@ -1,0 +1,53 @@
+ScreenManager:
+    IntroductionScreen:
+    InputScreen:
+
+<IntroductionScreen>:
+    name: 'introduction'
+
+    GridLayout:
+        cols: 1
+
+        Label:
+            id: title
+            size_hint_y: None
+            font_size: self.height
+            text: 'Welcome.'
+
+        Label:
+            id: body
+            size_hint_y: self.height / 2
+            text_size: self.width, None
+            height: self.texture_size[1]
+            font_size: self.height / 12
+            text: 'You have chosen to engage in the global seminar. As a part of this course, you will be challenged to change who you are and how you interact with the world. You will be asked to step outside of what is comfortable and routine in order to expand not just your college experience but your life experience. The focus of this course is cultural intelligence or CQ.'
+
+        Button:
+            size_hint_y: None
+            text: 'Forward'
+            on_release:
+                app.root.current = 'input'
+                root.manager.transition.direction = 'left'
+
+<InputScreen>:
+    name: 'input'
+
+    GridLayout:
+        cols: 1
+
+        Label:
+            id: title
+            size_hint_y: None
+            font_size: self.height / 6
+            text: 'In order to continue, please choose the spreadsheet provided by your instructor.'
+            text_size: self.width, None
+
+        FileChooserListView:
+            id: filechooser
+            path: 'u~'
+            on_selection: my_widget.selected(filechooser.selection)
+
+        Button
+            size_hint_y: None
+            text: "Upload"
+            on_release: cq.aedan_function(filechooser.path, filechooser.selection)
