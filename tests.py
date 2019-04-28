@@ -1,6 +1,7 @@
 import json
 
 from load_spreadsheet import get_actions, get_spreadsheet
+from storage import store_to_excel
 
 
 def test_get_actions():
@@ -34,6 +35,37 @@ def test_get_actions():
                     assert key in headers
 
             assert action[str(headers[i])] == str(row[i].value)
+
+
+def test_store_to_excel():
+    # test.json was created by a test application
+    # test.xlsx was created by running store_to_excel() in the test application
+    store = json.load(open("test.json"))
+    excel_data = get_spreadsheet("test.xlsx").active
+
+    # How the headers look in the excel file
+    ws_headers = ["Action and Category", "Repeat?", "Drive", "Knowledge", "Strategy", "Action",
+                  "Maximum?", "Times Completed"]
+
+    # How the headers were entered into the store
+    store_keys = ["Action and Category", "Repeat", "Drive", "Knowledge", "Strategy", "Action",
+                  "Maximum", "Completed"]
+
+    # Check that column headers are correct
+    header_idx = 0
+    for cell in tuple(excel_data.rows)[0]:
+        assert cell.value == ws_headers[header_idx]
+        header_idx += 1
+
+    for row_idx in range(1,excel_data.max_row):
+        cell_idx = 0
+        for cell in tuple(excel_data.rows)[row_idx]:
+            if cell_idx == 0:
+                action = cell.value
+                assert cell.value in store.keys()
+            else:
+                assert store[action][store_keys[cell_idx]] == cell.value
+            cell_idx += 1
 
 
 
