@@ -12,7 +12,7 @@ def update_storage(actions, store):
     :return: does not return, updates JSON storage file
     """
 
-    # JSON keys (for reference)
+    # Excel headers (for reference)
     # Action and Category, Repeat?, Drive, Knowledge, Strategy, Action, Maximum?, Times Completed
     actions = json.loads(actions)
     for action in actions:
