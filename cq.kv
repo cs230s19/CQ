@@ -1,6 +1,10 @@
 ScreenManager:
     IntroductionScreen:
     InputScreen:
+    DashboardScreen:
+    ActionListScreen:
+    ActionScreen:
+
 
 <IntroductionScreen>:
     name: 'introduction'
@@ -51,3 +55,43 @@ ScreenManager:
             size_hint_y: None
             text: "Upload"
             on_release: root.call_load_spreadsheet(filechooser.path, filechooser.selection)
+
+
+
+<DashboardScreen>:
+    name: 'dashboard'
+
+    GridLayout:
+        cols: 1
+
+        Label:
+            id: temp
+            size_hint_y: None
+            font_size: self.height
+            text: 'test.'
+
+
+<ActionListScreen>:
+    name: 'actionlist'
+
+    GridLayout:
+        cols: 1
+
+        Label:
+            id: temp
+            size_hint_y: None
+            font_size: self.height
+            text: 'test.'
+
+
+<ActionScreen>:
+    name: 'action'
+
+    GridLayout:
+        cols: 1
+
+        Label:
+            id: temp
+            size_hint_y: None
+            font_size: self.height
+            text: 'test.'
