@@ -25,6 +25,14 @@ def update_storage(actions, store):
 
 
 def store_to_excel(store, filename):
+    """
+    Converts the contents of the JSON store to an excel file and
+    saves the excel file in the current directory
+
+    :param store: kivy JSON store
+    :param filename: name of excel file to export
+    :return:
+    """
     workbook = openpyxl.Workbook()
     worksheet = workbook.active
     worksheet.title = "CQ"
