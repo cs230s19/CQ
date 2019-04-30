@@ -27,7 +27,7 @@ def get_actions(filename):
     :param filename: name of spreadsheet
     :return: json string
     """
-    workbook = load_workbook(filename)
+    workbook = get_spreadsheet(filename)
 
     if workbook is not None:
         # Use first sheet
@@ -39,10 +39,10 @@ def get_actions(filename):
         first_row = tuple(worksheet.rows)[0]
         for cell in first_row:
             if cell.value is not None:
-                headers.append(cell.value)
+                headers.append(cell.value.strip())
 
         for row in worksheet.iter_rows(min_row=2, max_col=len(headers)):
-            action = {'id': str(int(row[0].row) - 1)}
+            action = {'Times Completed': 0}
             for i in range(len(headers)):
                 action[str(headers[i])] = str(row[i].value)
 
