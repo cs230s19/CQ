@@ -1,25 +1,25 @@
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
+import load_spreadsheet
+import json
+
 
 class IntroductionScreen(Screen):
     pass
 
 
 class InputScreen(Screen):
-    def button_function(self):
-        shared_data = App.get_running_app().shared_data
-        shared_data.text += self.ids.input.text + '\n'
+    def call_load_spreadsheet(self, path, selection):
+        json_actions = load_spreadsheet.get_actions(selection[0])
+        App.get_running_app().shared_data.json = json_actions
 
-        self.ids.input.text = ''
-
-        introduction_screen = self.manager.get_screen('introduction')
-        introduction_screen.ids.input.text = shared_data.text
+        print(json.dumps(App.get_running_app().shared_data.json, indent=4, sort_keys=True))
 
 
 class SharedData:
     def __init__(self):
-        self.text = ''
+        self.json = None
 
 
 class CQApp(App):
