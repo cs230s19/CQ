@@ -45,9 +45,9 @@ ScreenManager:
         FileChooserListView:
             id: filechooser
             path: 'u~'
-            on_selection: my_widget.selected(filechooser.selection)
+            on_selection: root.call_load_spreadsheet(filechooser.path, filechooser.selection)
 
         Button
             size_hint_y: None
             text: "Upload"
-            on_release: cq.aedan_function(filechooser.path, filechooser.selection)
+            on_release: root.call_load_spreadsheet(filechooser.path, filechooser.selection)
