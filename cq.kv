@@ -1,53 +1,46 @@
-ScreenManager:
-    IntroductionScreen:
-    InputScreen:
-
-<IntroductionScreen>:
-    name: 'introduction'
-
-    GridLayout:
-        cols: 1
-
-        Label:
-            id: title
+IntroductionScreen:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                id: title
+                size_hint: (1, .18)
+                font_size: self.height * .9
+                font_name: 'Tangerine-Bold'
+                text: 'Welcome.'
+            Label:
+                id: body
+                size_hint: (1, .7)
+                text_size: self.width, None
+                font_size: self.height * .06
+                font_name: 'PoiretOne-Regular'
+                height: self.texture_size[1]
+                text: 'You have chosen to engage in the global seminar. As a part of this course, you will be challenged to change who you are and how you interact with the world. You will be asked to step outside of the comfortable and routine in order to expand not just your college experience but your life experience. The focus of this course is cultural intelligence or CQ.'
+        BoxLayout:
             size_hint_y: None
-            font_size: self.height
-            text: 'Welcome.'
+            height: 30
+            Button:
+                text: 'Upload Course Spreadsheet'
+                on_release: root.show_load()
 
-        Label:
-            id: body
-            size_hint_y: self.height / 2
-            text_size: self.width, None
-            height: self.texture_size[1]
-            font_size: self.height / 12
-            text: 'You have chosen to engage in the global seminar. As a part of this course, you will be challenged to change who you are and how you interact with the world. You will be asked to step outside of what is comfortable and routine in order to expand not just your college experience but your life experience. The focus of this course is cultural intelligence or CQ.'
 
-        Button:
-            size_hint_y: None
-            text: 'Forward'
-            on_release:
-                app.root.current = 'input'
-                root.manager.transition.direction = 'left'
-
-<InputScreen>:
-    name: 'input'
-
-    GridLayout:
-        cols: 1
-
-        Label:
-            id: title
-            size_hint_y: None
-            font_size: self.height / 6
-            text: 'In order to continue, please choose the spreadsheet provided by your instructor.'
-            text_size: self.width, None
-
+<FileSelectorPopup>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
         FileChooserListView:
             id: filechooser
-            path: 'u~'
-            on_selection: root.call_load_spreadsheet(filechooser.path, filechooser.selection)
+            path: '~'
 
-        Button
+        BoxLayout:
             size_hint_y: None
-            text: "Upload"
-            on_release: root.call_load_spreadsheet(filechooser.path, filechooser.selection)
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+            Button:
+                text: "Load"
+                on_release: root.load(filechooser.selection)
