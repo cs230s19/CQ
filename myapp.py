@@ -1,37 +1,75 @@
+from kivy.config import Config
+from kivy.core.window import Window
 from kivy.app import App
-from kivy.lang import Builder
-from kivy.uix.screenmanager import Screen
+from kivy.uix.floatlayout import FloatLayout
+from kivy.factory import Factory
+from kivy.properties import ObjectProperty
+from kivy.uix.popup import Popup
 import load_spreadsheet
-import json
-
-
-class IntroductionScreen(Screen):
-    pass
-
-
-class InputScreen(Screen):
-    def call_load_spreadsheet(self, path, selection):
-        json_actions = load_spreadsheet.get_actions(selection[0])
-        App.get_running_app().shared_data.json = json_actions
-
-        print(json.dumps(App.get_running_app().shared_data.json, indent=4, sort_keys=True))
 
 
 class SharedData:
+    """
+    A class designed to hold data that needs to be access by multiple app
+    screens.
+    """
     def __init__(self):
+        """
+        Initialize the SharedData class by creating an attribute called json.
+        """
         self.json = None
 
 
+class FileSelectorPopup(FloatLayout):
+    load = ObjectProperty(None)
+    cancel = ObjectProperty(None)
+
+
+class IntroductionScreen(FloatLayout):
+    """
+    A welcome screen for a new user. Gives an introductory message.
+    """
+    loadfile = ObjectProperty(None)
+
+    def dismiss_popup(self):
+        self._popup.dismiss()
+
+    def show_load(self):
+        content = FileSelectorPopup(load=self.load, cancel=self.dismiss_popup)
+        self._popup = Popup(title="Load file", content=content,
+                            size_hint=(0.9, 0.9))
+        self._popup.open()
+
+    def load(self, selection):
+        """
+        Get the json representation of an excel file when given that file's
+        path.
+        :param selection: An array containing one element: the path of an excel
+         file
+        :return:
+        """
+        json_actions = load_spreadsheet.get_actions(selection[0])
+        App.get_running_app().shared_data.json = json_actions
+
+        print(App.get_running_app().shared_data.json)
+
+        self.dismiss_popup()
+
+
 class CQApp(App):
-    # This class-level variable is accessible from anywhere in the code by
-    # using App.get_running_app().shared_data
-    # If you wanted to share more than just a string, you could add more
-    # attributes to the SharedData class
+    """
+    The overall app class.
+    """
+    # attribute for sharing data across screens
     shared_data = SharedData()
 
-    def build(self):
-        return Builder.load_file("cq.kv")
+
+Factory.register('IntroductionScreen', cls=IntroductionScreen)
+Factory.register('FileSelectorPopup', cls=FileSelectorPopup)
 
 
 if __name__ == '__main__':
+    Config.set('graphics', 'resizable', 0)
+    Window.size = (350, 650)
     CQApp().run()
+
