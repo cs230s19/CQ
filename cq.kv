@@ -1,4 +1,8 @@
-IntroductionScreen:
+ScreenManager:
+    IntroductionScreen:
+
+
+<IntroductionScreen>:
     BoxLayout:
         orientation: 'vertical'
         BoxLayout:
@@ -23,6 +27,7 @@ IntroductionScreen:
             Button:
                 text: 'Upload Course Spreadsheet'
                 on_release: root.show_load()
+                on_release: root.manager.transition.direction = 'left'
 
 
 <FileSelectorPopup>:
