@@ -1,9 +1,24 @@
 ScreenManager:
+    id: screen_manager
     IntroductionScreen:
-    ActionScreen:
+        id: introduction_screen
+        name: 'introduction'
+        manager: screen_manager
     DashboardScreen:
+        name: 'DashboardScreen'
+        manager: screen_manager
+        recap_text: introduction_screen.recap
+    ActionScreen:
+        name: 'ActionScreen'
+        manager: screen_manager
+        action_text: action_list_screen.action
+    ActionListScreen:
+        id: action_list_screen
+        name: 'ActionListScreen'
+        manager: screen_manager
 
 <IntroductionScreen>:
+    name: 'introduction'
     BoxLayout:
         orientation: 'vertical'
         BoxLayout:
@@ -29,9 +44,14 @@ ScreenManager:
                 text: 'Upload Course Spreadsheet'
                 on_release: root.show_load()
             Button:
-                text: 'Submit'
-                on_release: app.root.current = 'action'
+                text: 'Dashboard'
+                on_release: root.dashboard_transition()
                 on_release: root.manager.transition.direction = 'right'
+            Button:
+                text: 'Action list'
+                on_release: root.actionlist_transition()
+                on_release: root.manager.transition.direction = 'right'
+
 
 
 <FileSelectorPopup>:
@@ -55,38 +75,64 @@ ScreenManager:
                 on_release: root.load(filechooser.selection)
 
 <DashboardScreen>:
-    name: 'dashboard'
+    name: 'DashboardScreen'
+
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: root.recap_text
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                id: back
+                size_hint_y: None
+                font_size: self.height
+                text: 'go back'
+                on_release: app.root.current = 'introduction'
+                on_release: root.manager.transition.direction = 'left'
+
+
+<ActionListScreen>:
+    on_pre_enter: self.start()
+    name: 'ActionListScreen'
 
     GridLayout:
         cols: 1
-
-        Label:
-            id: recap
-            size_hint_y: None
-            font_size: self.height
-            text: 'test.'
+        ScrollView:
+            size_hint_y: 10
+            GridLayout:
+                id: content
+                cols: 1
 
         Button:
-            id: back
-            size_hint_y: None
+            size_hint_y: 1
             font_size: self.height
             text: 'go back'
+            on_release: app.root.current = 'introduction'
+            on_release: root.manager.transition.direction = 'left'
 
 
 <ActionScreen>:
-    name: 'action'
+    name: 'ActionScreen'
 
-    GridLayout:
-        cols: 1
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: root.action_text
 
-        Label:
-            id: action
+        BoxLayout:
             size_hint_y: None
-            font_size: self.height
-            text: 'empty'
-
-        Button:
-            id: back
-            size_hint_y: None
-            font_size: self.height
-            text: 'go back'
+            height: 30
+            Button:
+                id: back
+                size_hint_y: None
+                font_size: self.height
+                text: 'go back'
+                on_release: app.root.current = 'ActionListScreen'
+                on_release: root.manager.transition.direction = 'left'
