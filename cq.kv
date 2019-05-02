@@ -44,3 +44,40 @@ IntroductionScreen:
             Button:
                 text: "Load"
                 on_release: root.load(filechooser.selection)
+
+<DashboardScreen>:
+    name: 'dashboard'
+
+    GridLayout:
+        cols: 1
+
+        Label:
+            id: recap
+            size_hint_y: None
+            font_size: self.height
+            text: 'test.'
+
+        Button:
+            id: back
+            size_hint_y: None
+            font_size: self.height
+            text: 'go back'
+
+
+<ActionScreen>:
+    name: 'action'
+
+    GridLayout:
+        cols: 1
+
+        Label:
+            id: action
+            size_hint_y: None
+            font_size: self.height
+            text: 'empty'
+
+        Button:
+            id: back
+            size_hint_y: None
+            font_size: self.height
+            text: 'go back'
