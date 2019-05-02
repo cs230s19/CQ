@@ -11,7 +11,11 @@ ScreenManager:
     ActionScreen:
         name: 'ActionScreen'
         manager: screen_manager
-        action_text: introduction_screen.action
+        action_text: action_list_screen.action
+    ActionListScreen:
+        id: action_list_screen
+        name: 'ActionListScreen'
+        manager: screen_manager
 
 <IntroductionScreen>:
     name: 'introduction'
@@ -44,8 +48,8 @@ ScreenManager:
                 on_release: root.dashboard_transition()
                 on_release: root.manager.transition.direction = 'right'
             Button:
-                text: 'action'
-                on_release: root.action_transition()
+                text: 'Action list'
+                on_release: root.actionlist_transition()
                 on_release: root.manager.transition.direction = 'right'
 
 
@@ -92,6 +96,26 @@ ScreenManager:
                 on_release: root.manager.transition.direction = 'left'
 
 
+<ActionListScreen>:
+    on_pre_enter: self.start()
+    name: 'ActionListScreen'
+
+    GridLayout:
+        cols: 1
+        ScrollView:
+            size_hint_y: 10
+            GridLayout:
+                id: content
+                cols: 1
+
+        Button:
+            size_hint_y: 1
+            font_size: self.height
+            text: 'go back'
+            on_release: app.root.current = 'introduction'
+            on_release: root.manager.transition.direction = 'left'
+
+
 <ActionScreen>:
     name: 'ActionScreen'
 
@@ -110,5 +134,5 @@ ScreenManager:
                 size_hint_y: None
                 font_size: self.height
                 text: 'go back'
-                on_release: app.root.current = 'introduction'
+                on_release: app.root.current = 'ActionListScreen'
                 on_release: root.manager.transition.direction = 'left'
