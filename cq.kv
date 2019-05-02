@@ -1,4 +1,8 @@
-IntroductionScreen:
+ScreenManager:
+    IntroductionScreen:
+    FooScreen:
+
+<IntroductionScreen>:
     BoxLayout:
         orientation: 'vertical'
         BoxLayout:
@@ -23,6 +27,10 @@ IntroductionScreen:
             Button:
                 text: 'Upload Course Spreadsheet'
                 on_release: root.show_load()
+            Button:
+                text: 'Submit'
+                on_release: app.root.current = 'foo'
+                on_release: root.manager.transition.direction = 'right'
 
 
 <FileSelectorPopup>:
@@ -81,3 +89,11 @@ IntroductionScreen:
             size_hint_y: None
             font_size: self.height
             text: 'go back'
+=======
+<FooScreen>:
+    name: 'foo'
+    Label:
+        size_hint: (1, .18)
+        font_size: self.height * .9
+        font_name: 'Tangerine-Bold'
+        text: 'It works.'
