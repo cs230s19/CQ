@@ -1,8 +1,20 @@
 ScreenManager:
+    id: screen_manager
     IntroductionScreen:
-    FooScreen:
+        id: introduction_screen
+        name: 'introduction'
+        manager: screen_manager
+    DashboardScreen:
+        name: 'DashboardScreen'
+        manager: screen_manager
+        recap_text: introduction_screen.recap
+    ActionScreen:
+        name: 'ActionScreen'
+        manager: screen_manager
+        action_text: introduction_screen.action
 
 <IntroductionScreen>:
+    name: 'introduction'
     BoxLayout:
         orientation: 'vertical'
         BoxLayout:
@@ -28,9 +40,14 @@ ScreenManager:
                 text: 'Upload Course Spreadsheet'
                 on_release: root.show_load()
             Button:
-                text: 'Submit'
-                on_release: app.root.current = 'foo'
+                text: 'Dashboard'
+                on_release: root.dashboard_transition()
                 on_release: root.manager.transition.direction = 'right'
+            Button:
+                text: 'action'
+                on_release: root.action_transition()
+                on_release: root.manager.transition.direction = 'right'
+
 
 
 <FileSelectorPopup>:
@@ -54,46 +71,44 @@ ScreenManager:
                 on_release: root.load(filechooser.selection)
 
 <DashboardScreen>:
-    name: 'dashboard'
+    name: 'DashboardScreen'
 
-    GridLayout:
-        cols: 1
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: root.recap_text
 
-        Label:
-            id: recap
+        BoxLayout:
             size_hint_y: None
-            font_size: self.height
-            text: 'test.'
-
-        Button:
-            id: back
-            size_hint_y: None
-            font_size: self.height
-            text: 'go back'
+            height: 30
+            Button:
+                id: back
+                size_hint_y: None
+                font_size: self.height
+                text: 'go back'
+                on_release: app.root.current = 'introduction'
+                on_release: root.manager.transition.direction = 'left'
 
 
 <ActionScreen>:
-    name: 'action'
+    name: 'ActionScreen'
 
-    GridLayout:
-        cols: 1
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: root.action_text
 
-        Label:
-            id: action
+        BoxLayout:
             size_hint_y: None
-            font_size: self.height
-            text: 'empty'
-
-        Button:
-            id: back
-            size_hint_y: None
-            font_size: self.height
-            text: 'go back'
-=======
-<FooScreen>:
-    name: 'foo'
-    Label:
-        size_hint: (1, .18)
-        font_size: self.height * .9
-        font_name: 'Tangerine-Bold'
-        text: 'It works.'
+            height: 30
+            Button:
+                id: back
+                size_hint_y: None
+                font_size: self.height
+                text: 'go back'
+                on_release: app.root.current = 'introduction'
+                on_release: root.manager.transition.direction = 'left'
