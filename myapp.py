@@ -7,6 +7,8 @@ from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
 import load_spreadsheet
 
+class FooScreen(Screen):
+    pass
 
 class SharedData:
     """

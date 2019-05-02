@@ -1,6 +1,6 @@
 ScreenManager:
     IntroductionScreen:
-
+    FooScreen:
 
 <IntroductionScreen>:
     BoxLayout:
@@ -27,7 +27,10 @@ ScreenManager:
             Button:
                 text: 'Upload Course Spreadsheet'
                 on_release: root.show_load()
-                on_release: root.manager.transition.direction = 'left'
+            Button:
+                text: 'Submit'
+                on_release: app.root.current = 'foo'
+                on_release: root.manager.transition.direction = 'right'
 
 
 <FileSelectorPopup>:
@@ -49,3 +52,11 @@ ScreenManager:
             Button:
                 text: "Load"
                 on_release: root.load(filechooser.selection)
+
+<FooScreen>:
+    name: 'foo'
+    Label:
+        size_hint: (1, .18)
+        font_size: self.height * .9
+        font_name: 'Tangerine-Bold'
+        text: 'It works.'
