@@ -157,18 +157,27 @@ class IntroductionScreen(Screen):
                     actions_completed += 1
                     actions_performed += 1
 
-                    if action['Drive']:
+                    if action['Drive'] != 'None':
                         max_drive += int(action['Drive'])
                         current_drive += int(action['Drive'])
-                    if action['Knowledge']:
+                    if action['Knowledge'] != 'None':
                         max_knowledge += int(action['Knowledge'])
                         current_knowledge += int(action['Knowledge'])
-                    if action['Strategy']:
+                    if action['Strategy'] != 'None':
                         max_strategy += int(action['Strategy'])
                         current_strategy += int(action['Strategy'])
-                    if action['Action']:
-                        max_strategy += int(action['Action'])
-                        current_strategy += int(action['Action'])
+                    if action['Action'] != 'None':
+                        max_action += int(action['Action'])
+                        current_action += int(action['Action'])
+                else:
+                    if action['Drive'] != 'None':
+                        max_drive += int(action['Drive'])
+                    if action['Knowledge'] != 'None':
+                        max_knowledge += int(action['Knowledge'])
+                    if action['Strategy'] != 'None':
+                        max_strategy += int(action['Strategy'])
+                    if action['Action'] != 'None':
+                        max_action += int(action['Action'])
 
             else:
                 actions_available += 1
@@ -176,18 +185,27 @@ class IntroductionScreen(Screen):
                     actions_completed += 1
                     actions_performed += action['Times Completed']
 
-                    if action['Drive']:
+                    if action['Drive'] != 'None':
                         max_drive += action['Times Completed'] * int(action['Drive'])
                         current_drive += action['Times Completed'] * int(action['Drive'])
-                    if action['Knowledge']:
+                    if action['Knowledge'] != 'None':
                         max_knowledge += action['Times Completed'] * int(action['Knowledge'])
                         current_knowledge += action['Times Completed'] * int(action['Knowledge'])
-                    if action['Strategy']:
+                    if action['Strategy'] != 'None':
                         max_strategy += action['Times Completed'] * int(action['Strategy'])
                         current_strategy += action['Times Completed'] * int(action['Strategy'])
-                    if action['Action']:
-                        max_strategy += action['Times Completed'] * (action['Action'])
-                        current_strategy += action['Times Completed'] * int(action['Action'])
+                    if action['Action'] != 'None':
+                        max_action += action['Times Completed'] * int(action['Action'])
+                        current_action += action['Times Completed'] * int(action['Action'])
+                else:
+                    if action['Drive'] != 'None':
+                        max_drive += int(action['Drive'])
+                    if action['Knowledge'] != 'None':
+                        max_knowledge += int(action['Knowledge'])
+                    if action['Strategy'] != 'None':
+                        max_strategy += int(action['Strategy'])
+                    if action['Action'] != 'None':
+                        max_action += int(action['Action'])
 
             result = "This screen allows you to keep track of your progress.\n\n"
 
@@ -198,6 +216,7 @@ class IntroductionScreen(Screen):
             result += "You have gathered {} out of {} knowledge points.\n".format(current_knowledge, max_knowledge)
             result += "You have gathered {} out of {} strategy points.\n".format(current_strategy, max_strategy)
             result += "You have gathered {} out of {} action points.\n".format(current_action, max_action)
+            print(result)
 
         self.recap = result
         self.manager.current = 'DashboardScreen'
