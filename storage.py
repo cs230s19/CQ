@@ -5,7 +5,7 @@ import openpyxl
 
 def update_storage(actions, store):
     """
-    Updates the JSON store with the actions contained in the actions parameter
+    Updates the JSON store with the actions contained in the actions paramete
 
     :param actions: list of Python dictionaries containing actions that may be added
     :param store: Kivy JSON store
@@ -63,3 +63,17 @@ def store_to_excel(store, filename):
         worksheet.append(row)
 
     workbook.save(filename)
+
+
+def dump_store(store):
+    """
+    Converts contents of a kivy JSON store to a list of dictionaries
+
+    :param store: kivy JSON store
+    :return: list of dictionaries
+    """
+    data = []
+    for key, entry in store.find():
+        data.append({key: entry})
+
+    return data
