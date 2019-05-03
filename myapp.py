@@ -115,8 +115,7 @@ class ActionScreen(Screen):
                 action["Times Completed"] += 1
             else:
                 raise ValueError("Already completed action the maximum number of times")
-
-        update_storage(action, App.get_running_app().shared_data.jstore)
+        update_storage([action], App.get_running_app().shared_data.jstore)
 
 
 class FileSelectorPopup(FloatLayout):
@@ -255,7 +254,6 @@ class IntroductionScreen(Screen):
             result += "You have gathered {} out of {} knowledge points.\n".format(current_knowledge, max_knowledge)
             result += "You have gathered {} out of {} strategy points.\n".format(current_strategy, max_strategy)
             result += "You have gathered {} out of {} action points.\n".format(current_action, max_action)
-            print(result)
 
         self.recap = result
         self.manager.current = 'DashboardScreen'
