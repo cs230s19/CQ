@@ -81,7 +81,7 @@ ScreenManager:
             size_hint_y: None
             height: 30
             Button:
-                text: 'export progress'
+                text: 'Export Progress'
                 on_release: root.export_progress()
 
             Button:
@@ -142,6 +142,6 @@ ScreenManager:
             height: 30
             Button:
                 id: back
-                text: 'go back'
+                text: 'Go Back'
                 on_release: app.root.current = 'ActionListScreen'
                 on_release: root.manager.transition.direction = 'left'
