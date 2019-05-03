@@ -164,9 +164,13 @@ class IntroductionScreen(Screen):
         json_actions = load_spreadsheet.get_actions(selection[0])
         App.get_running_app().shared_data.json = json.loads(json_actions)
 
-        print(type(App.get_running_app().shared_data.json))
-
         self.dismiss_popup()
+        print(App.get_running_app().root.current)
+        if App.get_running_app().root.current == "introduction":
+            print("Made if")
+            App.get_running_app().root.current = "ActionListScreen"
+            App.get_running_app().root.transition.direction = "left"
+            print(App.get_running_app().root.current)
 
     def dashboard_transition(self):
         actions = App.get_running_app().shared_data.json
