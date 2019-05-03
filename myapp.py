@@ -111,7 +111,7 @@ class ActionScreen(Screen):
         else:
             if action["Maximum?"] == 'None':
                 action["Times Completed"] += 1
-            elif action["Times Completed"] < action["Maximum"]:
+            elif action["Times Completed"] < action["Maximum?"]:
                 action["Times Completed"] += 1
             else:
                 raise ValueError("Already completed action the maximum number of times")
@@ -219,7 +219,7 @@ class IntroductionScreen(Screen):
 
             else:
                 actions_available += 1
-                if action['Times Completed'] > 1:
+                if action['Times Completed'] >= 1:
                     actions_completed += 1
                     actions_performed += action['Times Completed']
 
