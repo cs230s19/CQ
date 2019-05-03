@@ -90,6 +90,10 @@ ScreenManager:
             size_hint_y: None
             height: 30
             Button:
+                text: 'export progress'
+                on_release: root.export_progress()
+
+            Button:
                 id: back
                 text: 'go back'
                 on_release: app.root.current = 'introduction'
