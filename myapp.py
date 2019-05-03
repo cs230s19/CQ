@@ -13,6 +13,8 @@ from kivy.storage.jsonstore import JsonStore
 import load_spreadsheet
 import json
 
+from storage import update_storage
+
 
 class SharedData:
     """
@@ -108,6 +110,8 @@ class ActionScreen(Screen):
                 action["Times Completed"] += 1
             else:
                 raise ValueError("Already completed action the maximum number of times")
+
+        update_storage(action, App.get_running_app().shared_data.jstore)
 
 
 class FileSelectorPopup(FloatLayout):
