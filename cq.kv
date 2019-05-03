@@ -39,7 +39,7 @@ ScreenManager:
                 text: 'You have chosen to engage in the global seminar. As a part of this course, you will be challenged to change who you are and how you interact with the world. You will be asked to step outside of the comfortable and routine in order to expand not just your college experience but your life experience. The focus of this course is cultural intelligence or CQ.'
         BoxLayout:
             size_hint_y: None
-            height: 30
+            height: 40
             Button:
                 text: 'Upload Course Spreadsheet'
                 on_release: root.show_load()
@@ -82,6 +82,8 @@ ScreenManager:
         BoxLayout:
             orientation: 'vertical'
             Label:
+                size_hint: (1, .88)
+                text_size: self.width, None
                 text: root.recap_text
 
         BoxLayout:
@@ -124,6 +126,7 @@ ScreenManager:
         BoxLayout:
             orientation: 'vertical'
             Label:
+                text_size: self.width, None
                 text: root.action_text
 
         BoxLayout:
