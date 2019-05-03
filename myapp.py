@@ -9,6 +9,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
 from kivy.uix.scrollview import ScrollView
 from kivy.properties import StringProperty
+from kivy.storage.jsonstore import JsonStore
 import load_spreadsheet
 import json
 
@@ -23,6 +24,7 @@ class SharedData:
         Initialize the SharedData class by creating an attribute called json.
         """
         self.json = None
+        self.jstore = JsonStore('.CQ.json')
 
 
 class DashboardScreen(Screen):
