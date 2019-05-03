@@ -5,16 +5,15 @@ import openpyxl
 
 def update_storage(actions, store):
     """
-    Updates the JSON store with any action within actions that is not already in the store
+    Updates the JSON store with the actions contained in the actions parameter
 
-    :param actions: JSON string containing actions that may be added
+    :param actions: list of Python dictionaries containing actions that may be added
     :param store: Kivy JSON store
     :return: does not return, updates JSON storage file
     """
 
     # Excel headers (for reference)
     # Action and Category, Repeat?, Drive, Knowledge, Strategy, Action, Maximum?, Times Completed
-    actions = json.loads(actions)
     for action in actions:
         try:
             store.put(action['Action and Category'], Repeat=action['Repeat?'], Drive=action['Drive'],
@@ -31,7 +30,7 @@ def store_to_excel(store, filename):
 
     :param store: kivy JSON store
     :param filename: name of excel file to export
-    :return:
+    :return: does not return - creates an excel file in the current directory
     """
     workbook = openpyxl.Workbook()
     worksheet = workbook.active
