@@ -5,9 +5,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.floatlayout import FloatLayout
 from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
-from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
-from kivy.uix.scrollview import ScrollView
 from kivy.properties import StringProperty
 from kivy.storage.jsonstore import JsonStore
 from storage import store_to_excel
@@ -74,7 +72,6 @@ class ActionListScreen(Screen):
     def start(self):
         actions = App.get_running_app().shared_data.json
 
-
         for index in range(len(actions)):
             btn_label = "{}:{}".format(index + 1, actions[index]["Action and Category"])
             if len(btn_label) > 43:
@@ -111,7 +108,7 @@ class ActionScreen(Screen):
         else:
             if action["Maximum?"] == 'None':
                 action["Times Completed"] += 1
-            elif action["Times Completed"] < action["Maximum"]:
+            elif action["Times Completed"] < action["Maximum?"]:
                 action["Times Completed"] += 1
             else:
                 raise ValueError("Already completed action the maximum number of times")
@@ -164,12 +161,9 @@ class IntroductionScreen(Screen):
         App.get_running_app().shared_data.json = json.loads(json_actions)
 
         self.dismiss_popup()
-        print(App.get_running_app().root.current)
         if App.get_running_app().root.current == "introduction":
-            print("Made if")
             App.get_running_app().root.current = "ActionListScreen"
             App.get_running_app().root.transition.direction = "left"
-            print(App.get_running_app().root.current)
 
     def dashboard_transition(self):
         actions = App.get_running_app().shared_data.json
@@ -219,7 +213,7 @@ class IntroductionScreen(Screen):
 
             else:
                 actions_available += 1
-                if action['Times Completed'] > 1:
+                if action['Times Completed'] >= 1:
                     actions_completed += 1
                     actions_performed += action['Times Completed']
 
@@ -260,6 +254,7 @@ class IntroductionScreen(Screen):
 
     def actionlist_transition(self):
         self.manager.current = 'ActionListScreen'
+
 
 class CQApp(App):
     """
