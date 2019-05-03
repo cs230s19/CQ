@@ -127,7 +127,7 @@ class IntroductionScreen(Screen):
         :return: None
         """
         json_actions = load_spreadsheet.get_actions(selection[0])
-        App.get_running_app().shared_data.json = json_actions
+        App.get_running_app().shared_data.json = json.loads(json_actions)
 
         print(type(App.get_running_app().shared_data.json))
 
@@ -204,7 +204,6 @@ class IntroductionScreen(Screen):
 
     def actionlist_transition(self):
         self.manager.current = 'ActionListScreen'
-
 
 class CQApp(App):
     """
