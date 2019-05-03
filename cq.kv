@@ -43,15 +43,6 @@ ScreenManager:
             Button:
                 text: 'Upload Course Spreadsheet'
                 on_release: root.show_load()
-            Button:
-                text: 'Dashboard'
-                on_release: root.dashboard_transition()
-                on_release: root.manager.transition.direction = 'right'
-            Button:
-                text: 'Action list'
-                on_release: root.actionlist_transition()
-                on_release: root.manager.transition.direction = 'right'
-
 
 
 <FileSelectorPopup>:
@@ -95,8 +86,8 @@ ScreenManager:
 
             Button:
                 id: back
-                text: 'go back'
-                on_release: app.root.current = 'introduction'
+                text: 'Action List'
+                on_release: app.root.current = 'ActionListScreen'
                 on_release: root.manager.transition.direction = 'left'
 
 
@@ -112,12 +103,18 @@ ScreenManager:
                 id: content
                 cols: 1
 
-        Button:
+        BoxLayout:
             size_hint_y: None
             height: 30
-            text: 'go back'
-            on_release: app.root.current = 'introduction'
-            on_release: root.manager.transition.direction = 'left'
+            Button:
+                id: back
+                text: 'Dashboard'
+                on_release: app.root.ids.introduction_screen.dashboard_transition()
+                on_release: app.root.current = 'DashboardScreen'
+                on_release: root.manager.transition.direction = 'right'
+            Button:
+                text: 'Add Spreadsheet'
+                on_release: root.manager.ids.introduction_screen.show_load()
 
 
 <ActionScreen>:
