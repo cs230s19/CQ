@@ -10,6 +10,7 @@ from kivy.uix.button import Button
 from kivy.uix.scrollview import ScrollView
 from kivy.properties import StringProperty
 from kivy.storage.jsonstore import JsonStore
+from storage import store_to_excel
 import load_spreadsheet
 import json
 
@@ -33,6 +34,10 @@ class DashboardScreen(Screen):
     Contains an overview of what the user achieved
     """
     recap_text = StringProperty('')
+
+    def export_progress(self):
+        store = App.get_running_app().shared_data.jstore
+        store_to_excel(store, 'progress.xlsx')
 
 
 class ActionListScreen(Screen):
