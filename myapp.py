@@ -26,6 +26,7 @@ class SharedData:
         """
         self.json = None
         self.jstore = JsonStore('.CQ.json')
+        self.current_action = 0
 
 
 class DashboardScreen(Screen):
@@ -49,6 +50,7 @@ class ActionListScreen(Screen):
 
         index = int(instance.text.split(':')[0]) - 1
         action = actions[index]
+        App.get_running_app().shared_data.current_action = index
 
         result = '{}:\n\n'.format(action["Action and Category"])
         if action["Repeat?"] != "No":
@@ -89,6 +91,28 @@ class ActionScreen(Screen):
     Contains the information available about a specific action
     """
     action_text = StringProperty('')
+
+    def complete_action(self):
+        """
+        Function to update the current action as completed
+        :return: None
+        """
+        actions = App.get_running_app().shared_data.json
+        index = App.get_running_app().shared_data.current_action
+        action = actions[index]
+
+        if action["Repeat?"] == "No":
+            if action["Times Completed"] > 0:
+                raise ValueError("Cannot complete unrepeatable action multiple times")
+            else:
+                action["Times Completed"] += 1
+        else:
+            if action["Maximum?"] == 'None':
+                action["Times Completed"] += 1
+            elif action["Times Completed"] < action["Maximum"]:
+                action["Times Completed"] += 1
+            else:
+                raise ValueError("Already completed action the maximum number of times")
 
 
 class FileSelectorPopup(FloatLayout):

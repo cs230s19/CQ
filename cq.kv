@@ -135,6 +135,15 @@ ScreenManager:
             size_hint_y: None
             height: 30
             Button:
+                id: complete
+                text: 'Complete Action'
+                on_release: root.complete_action()
+                on_release: app.root.current = 'ActionListScreen'
+                on_release: root.manager.transition.direction = 'left'
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
                 id: back
                 text: 'go back'
                 on_release: app.root.current = 'ActionListScreen'
